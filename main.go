@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"log"
 	"net/http"
 )
 
@@ -12,7 +12,8 @@ func main() {
 }
 
 func rootHandler(w http.ResponseWriter, r *http.Request) {
-	r.URL.Scheme = "https://"
-	http.Redirect(w, r, "", http.StatusMovedPermanently)
+	r.URL.Scheme = "https"
+	r.URL.Host = r.Host
+	http.Redirect(w, r, r.URL.String(), http.StatusMovedPermanently)
 	return
 }
