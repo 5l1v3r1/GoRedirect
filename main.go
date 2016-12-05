@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"time"
 )
 
 func main() {
@@ -14,7 +15,7 @@ func main() {
 		WriteTimeout: 10 * time.Second,
 	}
 
-	log.Fatal(srv.ListenAndServe(":80", nil))
+	log.Fatal(srv.ListenAndServe())
 }
 
 func rootHandler(w http.ResponseWriter, r *http.Request) {
