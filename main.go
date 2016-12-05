@@ -8,7 +8,13 @@ import (
 func main() {
 	http.HandleFunc("/", rootHandler)
 
-	log.Fatal(http.ListenAndServe(":80", nil))
+	// Must set timeouts otherwise we'll inevitably run out of file descriptors
+	srv := &http.Server{
+		ReadTimeout:  5 * time.Second,
+		WriteTimeout: 10 * time.Second,
+	}
+
+	log.Fatal(srv.ListenAndServe(":80", nil))
 }
 
 func rootHandler(w http.ResponseWriter, r *http.Request) {
